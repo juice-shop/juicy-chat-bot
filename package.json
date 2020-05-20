@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/bkimminich/juicy-chat-bot#readme",
   "dependencies": {
+    "node-nlp": "^4.4.0",
     "vm2": "^3.9.2"
   }
 }

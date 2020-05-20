@@ -1,11 +1,13 @@
 const { VM } = require('vm2');
+const factory = require('./factory')
 
 class Bot {
-    constructor(name, greeting) {
+    constructor(name, greeting, training_set) {
         this.name = name;
         this.greeting = greeting;
-        this.factory = new VM()
-        this.training_set = null;
+        this.ctx = factory.context;
+        this.ctx.training_set = training_set;
+        this.factory = new VM({ sandbox: ctx });
         this.responses = null;
     }
 
@@ -17,6 +19,9 @@ class Bot {
         return statement.replace(/<name>/g, this.name);
     }
     
+    train() {
+        this.factory.run(`train();`);
+    }
 }
 
 exports.Bot = Bot;
