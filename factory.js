@@ -9,3 +9,5 @@ context = {
 
     training_set: null
 }
+
+exports.context = this.context;
