@@ -9,19 +9,29 @@ class Bot {
     this.factory = new VM()
     this.factory.run(ctx)
     this.factory.run(`trainingSet=${trainingSet}`)
-    this.responses = null
   }
 
   greet () {
     return this.render(this.greeting)
   }
 
+    addUser() {
+        //TODO
+        return true;
+    }
+
     render(statement, token) {
         return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`));
     }
 
     respond(query, token) {
-        return this.render(this.factory.run(`process("${query}")`), token)
+        response = this.factory.run(`process("${query}", "${token}")`);
+        if (response.action == "response") {
+            return this.render(response.message, token);
+        }
+        else {
+            this.addUser();
+        }
     }
 
   train () {
