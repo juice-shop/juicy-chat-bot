@@ -9,4 +9,9 @@ function process (query) {
 function train () {
   global.responseSet = global.trainingSet
 }
+
+function currentUser(token) {
+    return "scar"
+}
+
 /* eslint-enable no-unused-vars */

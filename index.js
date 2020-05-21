@@ -16,13 +16,13 @@ class Bot {
     return this.render(this.greeting)
   }
 
-  render (statement) {
-    return statement.replace(/<bot-name>/g, this.name)
-  }
+    render(statement, token) {
+        return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`));
+    }
 
-  respond (query) {
-    return this.render(this.factory.run(`process("${query}")`))
-  }
+    respond(query, token) {
+        return this.render(this.factory.run(`process("${query}")`), token)
+    }
 
   train () {
     this.factory.run('train()')
