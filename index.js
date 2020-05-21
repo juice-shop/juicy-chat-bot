@@ -1,13 +1,13 @@
 const { VM } = require('vm2');
-// const responseModel = require('./responseFactory');
-
+const fs = require('fs');
+const ctx = fs.readFileSync('./factory.js').toString();
 class Bot {
     constructor(name, greeting, training_set) {
         this.name = name;
         this.greeting = greeting;
-        this.ctx = responseModel.context;
-        this.ctx.training_set = training_set;
-        this.factory = new VM({ sandbox: this.ctx });
+        this.factory = new VM();
+        this.factory.run(ctx);
+        this.factory.run(`training_set=${training_set}`)
         this.responses = null;
     }
 
