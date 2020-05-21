@@ -1,6 +1,7 @@
 const { VM } = require('vm2');
 const fs = require('fs');
 const ctx = fs.readFileSync('./factory.js').toString();
+
 class Bot {
     constructor(name, greeting, training_set) {
         this.name = name;
