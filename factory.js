@@ -5,23 +5,30 @@ var responseSet
 users = {
   idmap: {},
 
-  adduser: function(token, name) {
-      idmap[token] = name;
+  addUser: function(token, name) {
+    this.idmap[token] = name;
+  },
+
+  get: function(token) {
+    return this.idmap[token];
   }
 }
 
 function train () {
-  global.responseSet = global.trainingSet
+  global.responseSet = global.trainingSet;
 }
 
 function process(query, token) {
-    if (users.get(token)) {
-        return {action: "response", message: response_set[query]};
-    }
+  if (users.get(token)) {
+    return {action: "response", message: responseSet[query]};
+  }
+  else {
+    return {action: "unrecognized", message: "user does not exist"};
+  }
 }
 
 function currentUser(token) {
-    return "scar"
+  return users.idmap[token]
 }
 
 /* eslint-enable no-unused-vars */

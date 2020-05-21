@@ -15,9 +15,8 @@ class Bot {
     return this.render(this.greeting)
   }
 
-    addUser() {
-        //TODO
-        return true;
+    addUser(token) {
+        this.factory.run(`users.addUser("${token}", "scar")`);
     }
 
     render(statement, token) {
@@ -25,13 +24,12 @@ class Bot {
     }
 
     respond(query, token) {
-        response = this.factory.run(`process("${query}", "${token}")`);
-        if (response.action == "response") {
-            return this.render(response.message, token);
+        let response = this.factory.run(`process("${query}", "${token}")`);
+        if (response.action == "unrecognized") {
+            this.addUser(token)
+            return
         }
-        else {
-            this.addUser();
-        }
+        return this.render(response.message, token);
     }
 
   train () {
