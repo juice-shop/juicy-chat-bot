@@ -15,8 +15,8 @@ class Bot {
     return this.render(this.greeting)
   }
 
-    addUser(token) {
-        this.factory.run(`users.addUser("${token}", "scar")`);
+    addUser(token, name) {
+        this.factory.run(`users.addUser("${token}", "${name}")`);
     }
 
     render(statement, token) {
@@ -25,11 +25,8 @@ class Bot {
 
     respond(query, token) {
         let response = this.factory.run(`process("${query}", "${token}")`);
-        if (response.action == "unrecognized") {
-            this.addUser(token)
-            return
-        }
-        return this.render(response.message, token);
+        response.message =  this.render(response.message, token);
+        return response
     }
 
   train () {
