@@ -17,7 +17,7 @@ class Bot {
     }
 
     render(statement) {
-        return statement.replace(/<name>/g, this.name);
+        return statement.replace(/<bot-name>/g, this.name);
     }
     
     respond(query) {
