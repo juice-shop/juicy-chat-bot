@@ -18,6 +18,7 @@ jobs:
       if: tag IS blank
       install: npm install standard@14
 #      script: npm run lint
+      script: echo "Linting disabled! Uncomment line above and delete this one to turn on!"
     - stage: deploy
       if: tag IS present
       node_js: 12
