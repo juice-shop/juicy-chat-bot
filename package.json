@@ -4,6 +4,8 @@
   "description": "A light weight and totally secure library to easily deploy simple chatbots",
   "main": "index.js",
   "scripts": {
+    "lint": "standard",
+    "lint:fix": "standard --fix",
     "test": "node test/initialize.js"
   },
   "repository": {
@@ -12,12 +14,12 @@
   },
   "keywords": [
     "npm",
-    "chatobot",
+    "chatbot",
     "juice-shop",
     "OWASP"
   ],
   "author": "Mohit Sharma",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/bkimminich/juicy-chat-bot/issues"
   },
@@ -25,5 +27,13 @@
   "dependencies": {
     "node-nlp": "^4.4.0",
     "vm2": "^3.9.2"
+  },
+  "devDependencies": {
+    "standard": "^14.3.1"
+  },
+  "standard": {
+    "env": [
+      "node"
+    ]
   }
 }
