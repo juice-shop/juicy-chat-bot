@@ -1,10 +1,12 @@
-var training_set = null;
-var response_set = null;
+/* eslint-disable no-unused-vars */
+var trainingSet
+var responseSet
 
-function process(query) {
-    return global.response_set[query];
+function process (query) {
+  return global.responseSet[query]
 }
 
-function train() {
-    global.response_set = global.training_set;
+function train () {
+  global.responseSet = global.trainingSet
 }
+/* eslint-enable no-unused-vars */
