@@ -4,9 +4,9 @@
   "description": "A light weight and totally secure library to easily deploy simple chatbots",
   "main": "index.js",
   "scripts": {
+    "test": "cd test && node initialize.js && cd ..",
     "lint": "standard",
-    "lint:fix": "standard --fix",
-    "test": "node test/initialize.js"
+    "lint:fix": "standard --fix"
   },
   "repository": {
     "type": "git",
