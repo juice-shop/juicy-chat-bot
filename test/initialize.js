@@ -21,3 +21,5 @@ assert.deepEqual(bot.factory.run('response_set'), training_set)
 
 //Check: Bot responses appropriately for registered queries
 assert.equal(bot.respond("what\'s your name?"), "Jeff")
+
+console.log("Tests finished with no errors");

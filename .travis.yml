@@ -7,17 +7,18 @@ node_js:
 - 12
 - 10
 stages:
-#  - lint
+  - lint
   - test
   - deploy
 install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
 script: if [ -z "$TRAVIS_TAG" ]; then npm test; fi
 jobs:
   include:
-#    - stage: lint
-#      if: tag IS blank
-#      install: npm install standard@14
+    - stage: lint
+      if: tag IS blank
+      install: npm install standard@14
 #      script: npm run lint
+      script: echo "Linting disabled! Uncomment line above and delete this one to turn on!"
     - stage: deploy
       if: tag IS present
       node_js: 12
