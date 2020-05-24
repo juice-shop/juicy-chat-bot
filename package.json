@@ -4,7 +4,7 @@
   "description": "A light weight and totally secure library to easily deploy simple chatbots",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "cd test && node initialize.js"
   },
   "repository": {
     "type": "git",
