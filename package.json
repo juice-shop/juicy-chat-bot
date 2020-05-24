@@ -2,28 +2,32 @@
   "name": "juicy-chat-bot",
   "version": "1.0.0",
   "description": "A light weight and totally secure library to easily deploy simple chatbots",
-  "main": "index.js",
-  "scripts": {
-    "test": "cd test && node initialize.js && cd ..",
-    "lint": "standard",
-    "lint:fix": "standard --fix"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bkimminich/juicy-chat-bot.git"
-  },
   "keywords": [
     "npm",
     "chatbot",
     "juice-shop",
     "OWASP"
   ],
-  "author": "Mohit Sharma",
-  "license": "MIT",
+  "homepage": "https://owasp-juice.shop",
   "bugs": {
     "url": "https://github.com/bkimminich/juicy-chat-bot/issues"
   },
-  "homepage": "https://github.com/bkimminich/juicy-chat-bot#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bkimminich/juicy-chat-bot.git"
+  },
+  "license": "MIT",
+  "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://kimminich.de)",
+  "contributors": [
+    "Scar26",
+    "Björn Kimminich"
+  ],
+  "main": "index.js",
+  "scripts": {
+    "lint": "standard",
+    "lint:fix": "standard --fix",
+    "test": "cd test && node initialize.js && cd .."
+  },
   "dependencies": {
     "node-nlp": "^4.4.0",
     "vm2": "^3.9.2"
