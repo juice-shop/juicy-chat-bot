@@ -12,6 +12,7 @@ stages:
   - deploy
 install: if [ -z "$TRAVIS_TAG" ]; then npm install; fi
 script: if [ -z "$TRAVIS_TAG" ]; then npm test; fi
+after_success: if [ -z "$TRAVIS_TAG" ]; then npm run coverage; fi
 jobs:
   include:
     - stage: lint
