@@ -15,19 +15,19 @@ class Bot {
     return this.render(this.greeting)
   }
 
-    addUser(token, name) {
-        this.factory.run(`users.addUser("${token}", "${name}")`);
-    }
+  addUser (token, name) {
+    this.factory.run(`users.addUser("${token}", "${name}")`)
+  }
 
-    render(statement, token) {
-        return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`));
-    }
+  render (statement, token) {
+    return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`))
+  }
 
-    respond(query, token) {
-        let response = this.factory.run(`process("${query}", "${token}")`);
-        response.message =  this.render(response.message, token);
-        return response
-    }
+  respond (query, token) {
+    const response = this.factory.run(`process("${query}", "${token}")`)
+    response.message = this.render(response.message, token)
+    return response
+  }
 
   train () {
     this.factory.run('train()')
