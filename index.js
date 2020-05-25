@@ -9,7 +9,7 @@ class Bot {
     this.factory = new VM()
     this.factory.run(ctx)
     this.factory.run(`trainingSet=${trainingSet}`)
-    this.responses = null;
+    this.responses = null
   }
 
   greet () {
