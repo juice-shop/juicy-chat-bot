@@ -1,7 +1,7 @@
 # juicy-chat-bot [![npm Downloads](https://img.shields.io/npm/dm/juicy-chat-bot.svg)](https://www.npmjs.com/package/juicy-chat-bot)
 
 [![Build Status](https://travis-ci.com/bkimminich/juicy-chat-bot.svg?branch=master)](https://travis-ci.com/bkimminich/juicy-chat-bot)
-[![Coverage Status](https://coveralls.io/repos/github/bkimminich/juicy-chat-bot/badge.svg?branch=master)](https://coveralls.io/github/bkimminich/juicy-chat-bot?branch=master)  
+[![Coverage Status](https://coveralls.io/repos/github/bkimminich/juicy-chat-bot/badge.svg?branch=master)](https://coveralls.io/github/bkimminich/juicy-chat-bot?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Smart, friendly and helpful chat bot for OWASP Juice Shop
