@@ -1,6 +1,7 @@
 const { VM } = require('vm2')
 const fs = require('fs')
-const ctx = fs.readFileSync('./factory.js').toString()
+const path = require('path') // eslint-disable-line no-unused-vars
+const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
 
 class Bot {
   constructor (name, greeting, trainingSet) {
@@ -9,19 +10,24 @@ class Bot {
     this.factory = new VM()
     this.factory.run(ctx)
     this.factory.run(`trainingSet=${trainingSet}`)
-    this.responses = null
   }
 
   greet () {
     return this.render(this.greeting)
   }
 
-  render (statement) {
-    return statement.replace(/<bot-name>/g, this.name)
+  addUser (token, name) {
+    this.factory.run(`users.addUser("${token}", "${name}")`)
   }
 
-  respond (query) {
-    return this.render(this.factory.run(`process("${query}")`))
+  render (statement, token) {
+    return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`))
+  }
+
+  respond (query, token) {
+    const response = this.factory.run(`process("${query}", "${token}")`)
+    response.message = this.render(response.message, token)
+    return response
   }
 
   train () {
