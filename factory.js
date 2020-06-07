@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
+/* global nlp */
 var trainingSet
 var responseSet
-
+console.log(nlp)
 var users = {
   idmap: {},
 

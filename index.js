@@ -2,12 +2,18 @@ const { VM } = require('vm2')
 const fs = require('fs')
 const path = require('path') // eslint-disable-line no-unused-vars
 const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
+const { NlpManager } = require('node-nlp')
 
 class Bot {
   constructor (name, greeting, trainingSet) {
     this.name = name
     this.greeting = greeting
-    this.factory = new VM()
+    this.factory = new VM({
+      sandbox: {
+        nlp: NlpManager,
+        console: console
+      }
+    })
     this.factory.run(ctx)
     this.factory.run(`trainingSet=${trainingSet}`)
   }
