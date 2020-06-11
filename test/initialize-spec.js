@@ -1,7 +1,41 @@
 const chai = require('chai')
 const expect = chai.expect
 const juice = require('../index')
-const trainingSet = { 'hi bot': 'hello <customer-name>', "what's your name?": '<bot-name>' }
+const trainingSet = {
+  lang: 'en',
+  intents: [
+    {
+      question: 'goodbye for now',
+      intent: 'greetings.bye'
+    },
+    {
+      question: 'bye bye take care',
+      intent: 'greetings.bye'
+    },
+    {
+      question: 'hello',
+      intent: 'greetings.hello'
+    },
+    {
+      question: 'hi',
+      intent: 'greetings.hello'
+    },
+    {
+      question: 'howdy',
+      intent: 'greetings.hello'
+    }
+  ],
+  answers: [
+    {
+      intent: 'greetings.bye',
+      answer: 'Ok Cya'
+    },
+    {
+      intent: 'greetings.hello',
+      answer: 'Hello there!'
+    }
+  ]
+}
 
 describe('Initialize', () => {
   let bot

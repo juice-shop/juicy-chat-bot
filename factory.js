@@ -1,8 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* global nlp */
 var trainingSet
-var responseSet
-console.log(nlp)
+const model = new nlp({ languages: ['en'] });
 var users = {
   idmap: {},
 
@@ -15,15 +14,22 @@ var users = {
   }
 }
 
-function train () {
-  global.responseSet = global.trainingSet
+async function train () {
+  trainingSet.intents.map((query) => {
+    model.addDocument(trainingSet.lang, query.question, query.intent)
+  })
+  trainingSet.answers.map((query) => {
+    model.addAnswer(trainingSet.lang, query.intent, query.answer)
+  })
+  model.train().then(callback(1))
 }
 
-function process (query, token) {
+async function process (query, token) {
   if (users.get(token)) {
-    return { action: 'response', message: responseSet[query] }
+    response = await model.process(trainingSet.lang, query)
+    return callback(JSON.stringify({ action: 'response', message: response.answer }))
   } else {
-    return { action: 'unrecognized', message: 'user does not exist' }
+    return callback({ action: 'unrecognized', message: 'user does not exist' })
   }
 }
 
