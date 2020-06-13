@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
-/* global nlp */
-var trainingSet
+/* global nlp, training */
+var trainingSet = training.data
 const model = new nlp({ languages: ['en'] });
+
 var users = {
   idmap: {},
 
@@ -21,7 +22,7 @@ async function train () {
   trainingSet.answers.map((query) => {
     model.addAnswer(trainingSet.lang, query.intent, query.answer)
   })
-  model.train().then(callback(1))
+  model.train().then(() => { training.state = true })
 }
 
 async function process (query, token) {
@@ -34,7 +35,7 @@ async function process (query, token) {
 }
 
 function currentUser (token) {
-  return users.idmap[token]
+  return users.get(token)
 }
 
 /* eslint-enable no-unused-vars */
