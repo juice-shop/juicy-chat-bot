@@ -5,18 +5,18 @@ const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
 const { NlpManager } = require('node-nlp')
 
 class Bot {
-  constructor (name, greeting, trainingSet, reponseCallback) {
+  constructor (name, greeting, trainingSet, responseCallback) {
     this.name = name
     this.greeting = greeting
     this.training = {
       state: false,
-      data: trainingSet,
+      data: trainingSet
     }
     this.factory = new VM({
       sandbox: {
-        nlp: NlpManager,
-        callback: callback,
-        training: this.training,
+        Nlp: NlpManager,
+        callback: responseCallback,
+        training: this.training
       }
     })
     this.factory.run(ctx)
@@ -44,11 +44,6 @@ class Bot {
   train () {
     this.factory.run('train()')
   }
-
-  toggleState () {
-    console.log(this)
-  }
-
 }
 
 exports.Bot = Bot
