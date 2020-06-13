@@ -25,12 +25,11 @@ function train () {
   model.train().then(() => { training.state = true })
 }
 
-async function process (query, token) {
+function process (query, token) {
   if (users.get(token)) {
-    var response = await model.process(trainingSet.lang, query)
-    return callback(JSON.stringify({ action: 'response', message: response.answer }))
+    return { action: 'response', body: model.process(trainingSet.lang, query) }
   } else {
-    return callback(JSON.stringify({ action: 'unrecognized', message: 'user does not exist' }))
+    return { action: 'unrecognized', body: 'user does not exist' }
   }
 }
 

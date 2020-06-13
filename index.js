@@ -35,10 +35,17 @@ class Bot {
     return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`))
   }
 
-  respond (query, token) {
+  async respond (query, token) {
     const response = this.factory.run(`process("${query}", "${token}")`)
-    response.message = this.render(response.message, token)
-    return response
+    let message
+    if (response.action == 'response') {
+      message = await response.body
+      message = message.answer
+    } else {
+      message = response.body
+    }
+    message = this.render(message, token)
+    return { action: response.action, body: message}
   }
 
   train () {
