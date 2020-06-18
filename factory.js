@@ -22,7 +22,7 @@ function train () {
   trainingSet.answers.map((query) => {
     model.addAnswer(trainingSet.lang, query.intent, query.answer)
   })
-  model.train().then(() => { training.state = true })
+  return model.train().then(() => { training.state = true })
 }
 
 function process (query, token) {

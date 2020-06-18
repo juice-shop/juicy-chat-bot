@@ -38,18 +38,18 @@ class Bot {
   async respond (query, token) {
     const response = this.factory.run(`process("${query}", "${token}")`)
     let message
-    if (response.action == 'response') {
+    if (response.action === 'response') {
       message = await response.body
       message = message.answer
     } else {
       message = response.body
     }
     message = this.render(message, token)
-    return { action: response.action, body: message}
+    return { action: response.action, body: message }
   }
 
   train () {
-    this.factory.run('train()')
+    return this.factory.run('train()')
   }
 }
 
