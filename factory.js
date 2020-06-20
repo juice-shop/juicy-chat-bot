@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* global Nlp, training, callback */
+/* global Nlp, training */
 var trainingSet = training.data
 const model = new Nlp({ languages: ['en'] })
 
