@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
-var trainingSet
-var responseSet
+/* global Nlp, training */
+var trainingSet = training.data
+const model = new Nlp({ languages: ['en'] })
 
 var users = {
   idmap: {},
@@ -15,19 +16,25 @@ var users = {
 }
 
 function train () {
-  global.responseSet = global.trainingSet
+  trainingSet.intents.map((query) => {
+    model.addDocument(trainingSet.lang, query.question, query.intent)
+  })
+  trainingSet.answers.map((query) => {
+    model.addAnswer(trainingSet.lang, query.intent, query.answer)
+  })
+  return model.train().then(() => { training.state = true })
 }
 
 function process (query, token) {
   if (users.get(token)) {
-    return { action: 'response', message: responseSet[query] }
+    return { action: 'response', body: model.process(trainingSet.lang, query) }
   } else {
-    return { action: 'unrecognized', message: 'user does not exist' }
+    return { action: 'unrecognized', body: 'user does not exist' }
   }
 }
 
 function currentUser (token) {
-  return users.idmap[token]
+  return users.get(token)
 }
 
 /* eslint-enable no-unused-vars */

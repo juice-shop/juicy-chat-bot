@@ -2,12 +2,22 @@ const { VM } = require('vm2')
 const fs = require('fs')
 const path = require('path') // eslint-disable-line no-unused-vars
 const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
+const { NlpManager } = require('node-nlp')
 
 class Bot {
   constructor (name, greeting, trainingSet) {
     this.name = name
     this.greeting = greeting
-    this.factory = new VM()
+    this.training = {
+      state: false,
+      data: trainingSet
+    }
+    this.factory = new VM({
+      sandbox: {
+        Nlp: NlpManager,
+        training: this.training
+      }
+    })
     this.factory.run(ctx)
     this.factory.run(`trainingSet=${trainingSet}`)
   }
@@ -24,14 +34,21 @@ class Bot {
     return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`))
   }
 
-  respond (query, token) {
+  async respond (query, token) {
     const response = this.factory.run(`process("${query}", "${token}")`)
-    response.message = this.render(response.message, token)
-    return response
+    let message
+    if (response.action === 'response') {
+      message = await response.body
+      message = message.answer
+    } else {
+      message = response.body
+    }
+    message = this.render(message, token)
+    return { action: response.action, body: message }
   }
 
   train () {
-    this.factory.run('train()')
+    return this.factory.run('train()')
   }
 }
 
