@@ -15,7 +15,8 @@ class Bot {
     this.factory = new VM({
       sandbox: {
         Nlp: NlpManager,
-        training: this.training
+        training: this.training,
+        fs: null,
       }
     })
     this.factory.run(ctx)
@@ -28,6 +29,10 @@ class Bot {
 
   addUser (token, name) {
     this.factory.run(`users.addUser("${token}", "${name}")`)
+  }
+
+  getUser (token) {
+    return this.factory.run(`users.get("${token}")`)
   }
 
   render (statement, token) {
