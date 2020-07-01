@@ -16,7 +16,7 @@ class Bot {
       sandbox: {
         Nlp: NlpManager,
         training: this.training,
-        fs: null,
+        fs: null
       }
     })
     this.factory.run(ctx)

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* global Nlp, training */
 var trainingSet = training.data
-const model = new Nlp({ languages: ['en'], nlu: {log: false}, autoSave: false, autoLoad: false, modelFileName: '' })
+const model = new Nlp({ languages: ['en'], nlu: { log: false }, autoSave: false, autoLoad: false, modelFileName: '' })
 var users = {
   idmap: {},
 
