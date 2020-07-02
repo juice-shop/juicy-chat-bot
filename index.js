@@ -15,8 +15,7 @@ class Bot {
     this.factory = new VM({
       sandbox: {
         Nlp: NlpManager,
-        training: this.training,
-        fs: null
+        training: this.training
       }
     })
     this.factory.run(ctx)
