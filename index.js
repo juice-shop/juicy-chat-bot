@@ -30,6 +30,10 @@ class Bot {
     this.factory.run(`users.addUser("${token}", "${name}")`)
   }
 
+  getUser (token) {
+    return this.factory.run(`users.get("${token}")`)
+  }
+
   render (statement, token) {
     return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`))
   }
