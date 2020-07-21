@@ -5,9 +5,10 @@ const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
 const { NlpManager } = require('node-nlp')
 
 class Bot {
-  constructor (name, greeting, trainingSet) {
+  constructor (name, greeting, trainingSet, defaultResponse) {
     this.name = name
     this.greeting = greeting
+    this.defaultResponse = defaultResponse
     this.training = {
       state: false,
       data: trainingSet
@@ -22,8 +23,8 @@ class Bot {
     this.factory.run(`trainingSet=${trainingSet}`)
   }
 
-  greet () {
-    return this.render(this.greeting)
+  greet (token) {
+    return this.render(this.greeting, token)
   }
 
   addUser (token, name) {
@@ -46,6 +47,9 @@ class Bot {
       message = message.answer
     } else {
       message = response.body
+    }
+    if (!message) {
+      message = this.defaultResponse
     }
     message = this.render(message, token)
     return { action: response.action, body: message }
