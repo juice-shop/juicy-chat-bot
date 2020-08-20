@@ -8,7 +8,7 @@ class Bot {
   constructor (name, greeting, trainingSet, defaultResponse) {
     this.name = name
     this.greeting = greeting
-    this.defaultResponse = defaultResponse
+    this.defaultResponse = { action: 'response', body: defaultResponse }
     this.training = {
       state: false,
       data: trainingSet
@@ -40,19 +40,15 @@ class Bot {
   }
 
   async respond (query, token) {
-    const response = this.factory.run(`process("${query}", "${token}")`)
-    let message
-    if (response.action === 'response') {
-      message = await response.body
-      message = message.answer
+    const response = (await this.factory.run(`process("${query}", "${token}")`)).answer
+    if (!response) {
+      return this.defaultResponse
     } else {
-      message = response.body
+      if (response.body) {
+        response.body = this.render(response.body, token)
+      }
+      return response
     }
-    if (!message) {
-      message = this.defaultResponse
-    }
-    message = this.render(message, token)
-    return { action: response.action, body: message }
   }
 
   train () {

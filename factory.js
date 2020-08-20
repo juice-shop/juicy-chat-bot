@@ -26,7 +26,7 @@ function train () {
 
 function process (query, token) {
   if (users.get(token)) {
-    return { action: 'response', body: model.process(trainingSet.lang, query) }
+    return model.process(trainingSet.lang, query)
   } else {
     return { action: 'unrecognized', body: 'user does not exist' }
   }
