@@ -41,7 +41,7 @@
     ]
   },
   "dependencies": {
-    "node-nlp": "^4.4.0",
+    "node-nlp": "^4.10.5",
     "vm2": "^3.9.2"
   },
   "devDependencies": {
