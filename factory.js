@@ -15,11 +15,13 @@ var users = {
 }
 
 function train () {
-  trainingSet.intents.map((query) => {
-    model.addDocument(trainingSet.lang, query.question, query.intent)
-  })
-  trainingSet.answers.map((query) => {
-    model.addAnswer(trainingSet.lang, query.intent, query.answer)
+  trainingSet.data.map((query) => {
+    query.utterances.map((utterance) => {
+      model.addDocument(trainingSet.lang, utterance, query.intent)
+    })
+    query.answers.map((answer) => {
+      model.addAnswer(trainingSet.lang, query.intent, answer)
+    })
   })
   return model.train().then(() => { training.state = true })
 }
