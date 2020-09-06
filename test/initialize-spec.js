@@ -4,58 +4,33 @@ const juice = require('../index')
 
 const trainingSet = {
   lang: 'en',
-  intents: [
-    {
-      question: 'goodbye for now',
-      intent: 'greetings.bye'
-    },
-    {
-      question: 'bye bye take care',
-      intent: 'greetings.bye'
-    },
-    {
-      question: 'hello',
-      intent: 'greetings.hello'
-    },
-    {
-      question: 'hi',
-      intent: 'greetings.hello'
-    },
-    {
-      question: 'howdy',
-      intent: 'greetings.hello'
-    },
-    {
-      question: 'how much is X',
-      intent: 'queries.productprice'
-    },
-    {
-      question: 'how much does X cost',
-      intent: 'queries.productprice'
-    }
-  ],
-  answers: [
+  data: [
     {
       intent: 'greetings.bye',
-      answer: {
-        action: 'response',
-        body: 'Ok Cya'
-      }
+      utterances: [
+        'goodbye for now',
+        'bye bye take care'
+      ],
+      answers: [
+        {
+          action: 'response',
+          body: 'Ok Cya'
+        }
+      ]
     },
     {
       intent: 'greetings.hello',
-      answer: {
-        action: 'response',
-        body: 'Hello <customer-name>'
-      }
-    },
-    {
-      intent: 'queries.productprice',
-      answer: {
-        action: 'function',
-        handler: 'productPrice',
-        body: ''
-      }
+      utterances: [
+        'hello',
+        'hi',
+        'howdy'
+      ],
+      answers: [
+        {
+          action: 'response',
+          body: 'Hello <customer-name>'
+        }
+      ]
     }
   ]
 }
