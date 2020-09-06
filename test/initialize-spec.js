@@ -3,32 +3,32 @@ const expect = chai.expect
 const juice = require('../index')
 
 const trainingSet = {
-  "lang": "en",
-  "data": [
+  lang: 'en',
+  data: [
     {
-      "intent": "greetings.bye",
-      "utterances": [
-        "goodbye for now",
-        "bye bye take care"
+      intent: 'greetings.bye',
+      utterances: [
+        'goodbye for now',
+        'bye bye take care'
       ],
-      "answers": [
+      answers: [
         {
-          "action": "response",
-          "body": "Ok Cya"
+          action: 'response',
+          body: 'Ok Cya'
         }
       ]
     },
     {
-      "intent": "greetings.hello",
-      "utterances": [
-        "hello",
-        "hi",
-        "howdy"
+      intent: 'greetings.hello',
+      utterances: [
+        'hello',
+        'hi',
+        'howdy'
       ],
-      "answers": [
+      answers: [
         {
-          "action": "response",
-          "body": "Hello <customer-name>"
+          action: 'response',
+          body: 'Hello <customer-name>'
         }
       ]
     }
