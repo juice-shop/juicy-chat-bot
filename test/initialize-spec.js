@@ -96,7 +96,7 @@ describe('Initialize', () => {
   it('should respond randomly from multiple available answers', async () => {
     const responseCounter = { 'Chuck Norris has two speeds: Walk and Kill.': 0, 'Time waits for no man. Unless that man is Chuck Norris.': 0 }
     await bot.train()
-    for (let i=0; i<100; i++) {
+    for (let i = 0; i < 100; i++) {
       const response = await bot.respond('tell me a chuck norris joke', '123')
       expect([
         {
