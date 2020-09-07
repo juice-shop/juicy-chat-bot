@@ -55,7 +55,7 @@ describe('Initialize', () => {
   let bot
 
   beforeEach(() => {
-    bot = new juice.Bot('Jeff', 'Ma Nemma <bot-name>', JSON.stringify(trainingSet))
+    bot = new juice.Bot('Jeff', 'Ma Nemma <bot-name>', JSON.stringify(trainingSet), 'lalala')
     expect(() => bot.addUser('123', 'test-user')).to.not.throw()
   })
 
@@ -112,5 +112,13 @@ describe('Initialize', () => {
     }
     expect(responseCounter['Chuck Norris has two speeds: Walk and Kill.']).to.be.greaterThan(20)
     expect(responseCounter['Time waits for no man. Unless that man is Chuck Norris.']).to.be.greaterThan(20)
+  })
+
+  it('should respond with default response to unrecognized query', async () => {
+    await bot.train()
+    expect(await bot.respond('blabla blubb blubb', '123')).to.deep.equal({
+      action: 'response',
+      body: 'lalala'
+    })
   })
 })
