@@ -31,6 +31,22 @@ const trainingSet = {
           body: 'Hello <customer-name>'
         }
       ]
+    },
+    {
+      intent: 'jokes.chucknorris',
+      utterances: [
+        'tell me a chuck norris joke'
+      ],
+      answers: [
+        {
+          action: 'response',
+          body: 'Chuck Norris has two speeds: Walk and Kill.'
+        },
+        {
+          action: 'response',
+          body: 'Time waits for no man. Unless that man is Chuck Norris.'
+        }
+      ]
     }
   ]
 }
@@ -75,5 +91,26 @@ describe('Initialize', () => {
       action: 'response',
       body: 'Ok Cya'
     })
+  })
+
+  it('should respond randomly from multiple available answers', async () => {
+    const responseCounter = { 'Chuck Norris has two speeds: Walk and Kill.': 0, 'Time waits for no man. Unless that man is Chuck Norris.': 0 }
+    await bot.train()
+    for (let i=0; i<100; i++) {
+      const response = await bot.respond('tell me a chuck norris joke', '123')
+      expect([
+        {
+          action: 'response',
+          body: 'Chuck Norris has two speeds: Walk and Kill.'
+        },
+        {
+          action: 'response',
+          body: 'Time waits for no man. Unless that man is Chuck Norris.'
+        }
+      ]).to.deep.include(response)
+      responseCounter[response.body]++
+    }
+    expect(responseCounter['Chuck Norris has two speeds: Walk and Kill.']).to.be.greaterThan(20)
+    expect(responseCounter['Time waits for no man. Unless that man is Chuck Norris.']).to.be.greaterThan(20)
   })
 })
