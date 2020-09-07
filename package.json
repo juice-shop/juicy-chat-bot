@@ -1,7 +1,7 @@
 {
   "name": "juicy-chat-bot",
   "version": "0.5.1",
-  "description": "A light weight and totally secure library to easily deploy simple chatbots",
+  "description": "A light-weight and totally \"secure\" library to easily deploy simple chat bots",
   "keywords": [
     "npm",
     "chatbot",
