@@ -79,6 +79,7 @@ describe('Initialize', () => {
   it('should register new user with corresponsing token', async () => {
     await bot.train()
     expect(() => bot.addUser('1234', 'user2')).to.not.throw()
+    expect(await bot.getUser('1234')).to.equal('user2')
     expect(await bot.respond('hi bot', '1234')).to.deep.equal({
       action: 'response',
       body: 'Hello user2'
