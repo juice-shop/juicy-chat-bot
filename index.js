@@ -2,7 +2,7 @@ const { VM } = require('vm2')
 const fs = require('fs')
 const path = require('path') // eslint-disable-line no-unused-vars
 const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
-const { NlpManager } = require('node-nlp')
+const NlpManager = require('./nlp')
 
 class Bot {
   constructor (name, greeting, trainingSet, defaultResponse) {
