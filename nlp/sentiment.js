@@ -21,7 +21,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const SentimentAnalyzer = require('./sentiment-analyzer');
+const SentimentAnalyzer = require('./sentiment-analyzer')
 
 /**
  * Class for the sentiment anlysis manager, able to manage
@@ -31,24 +31,24 @@ class SentimentManager {
   /**
    * Constructor of the class.
    */
-  constructor(settings) {
-    this.settings = settings || {};
-    this.languages = {};
-    this.analyzer = new SentimentAnalyzer();
+  constructor (settings) {
+    this.settings = settings || {}
+    this.languages = {}
+    this.analyzer = new SentimentAnalyzer()
   }
 
-  addLanguage() {
+  addLanguage () {
     // do nothing
   }
 
-  translate(sentiment) {
-    let vote;
+  translate (sentiment) {
+    let vote
     if (sentiment.score > 0) {
-      vote = 'positive';
+      vote = 'positive'
     } else if (sentiment.score < 0) {
-      vote = 'negative';
+      vote = 'negative'
     } else {
-      vote = 'neutral';
+      vote = 'neutral'
     }
     return {
       score: sentiment.score,
@@ -57,8 +57,8 @@ class SentimentManager {
       numWords: sentiment.numWords,
       numHits: sentiment.numHits,
       type: sentiment.type,
-      language: sentiment.locale,
-    };
+      language: sentiment.locale
+    }
   }
 
   /**
@@ -67,14 +67,14 @@ class SentimentManager {
    * @param {String} phrase Phrase to calculate the sentiment.
    * @returns {Promise.Object} Promise sentiment analysis of the phrase.
    */
-  async process(locale, phrase) {
+  async process (locale, phrase) {
     const sentiment = await this.analyzer.getSentiment(
       phrase,
       locale,
       this.settings
-    );
-    return this.translate(sentiment);
+    )
+    return this.translate(sentiment)
   }
 }
 
-module.exports = SentimentManager;
+module.exports = SentimentManager
