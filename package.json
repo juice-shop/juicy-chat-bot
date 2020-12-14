@@ -24,7 +24,6 @@
   ],
   "main": "index.js",
   "scripts": {
-    "coverage": "nyc report --reporter=text-lcov",
     "lint": "standard",
     "lint:fix": "standard --fix",
     "test": "nyc mocha test"

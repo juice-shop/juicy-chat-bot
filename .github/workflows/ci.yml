@@ -48,13 +48,12 @@ jobs:
         run: npm install
       - name: "Execute unit tests"
         run: npm test
-      - name: "Create coverage report"
-        run: npm run coverage
       - name: "Publish coverage to Coveralls"
         if: github.event_name == 'push' && matrix.node-version == '14'
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./build/reports/coverage
   notify-slack:
     if: github.event_name == 'push' && (success() || failure())
     needs:
