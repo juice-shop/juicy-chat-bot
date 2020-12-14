@@ -5,7 +5,7 @@ on:
       - '*.md'
       - 'LICENSE'
     tags-ignore:
-      - '*'
+      - v*
   pull_request:
     branches:
       - develop
