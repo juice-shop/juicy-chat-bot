@@ -1,9 +1,11 @@
-name: "CI/CD Pipeline"
+name: "CI Pipeline"
 on:
   push:
     paths-ignore:
       - '*.md'
       - 'LICENSE'
+    tags-ignore:
+      - '*'
   pull_request:
     branches:
       - develop
