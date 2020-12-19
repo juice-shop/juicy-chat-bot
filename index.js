@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020-2021 Bjoern Kimminich.
+ * SPDX-License-Identifier: MIT
+ */
+
 const { VM } = require('vm2')
 const fs = require('fs')
 const path = require('path') // eslint-disable-line no-unused-vars

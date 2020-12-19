@@ -11,7 +11,7 @@ Smart, friendly and helpful chat bot for OWASP Juice Shop.
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). Juicy Chat Bot and any
-contributions are Copyright © by Bjoern Kimminich 2020.
+contributions are Copyright © by Bjoern Kimminich 2020-2021.
 
 ---
 
