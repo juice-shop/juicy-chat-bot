@@ -15,7 +15,7 @@ var users = {
   },
 
   get: function (token) {
-    return this.idmap[token];
+    return this.idmap[token]
   }
 }
 
