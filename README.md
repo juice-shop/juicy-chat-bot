@@ -1,17 +1,18 @@
-# ![Juice Shop CTF Logo](https://github.com/bkimminich/juicy-chat-bot/raw/master/JuicyChatBot.png) Juicy Chat Bot
+# ![Juice Shop CTF Logo](https://github.com/juice-shop/juicy-chat-bot/raw/master/JuicyChatBot.png) Juicy Chat Bot
 
 [![npm Downloads](https://img.shields.io/npm/dm/juicy-chat-bot.svg)](https://www.npmjs.com/package/juicy-chat-bot)
-[![Build Status](https://travis-ci.com/bkimminich/juicy-chat-bot.svg?branch=master)](https://travis-ci.com/bkimminich/juicy-chat-bot)
-[![Coverage Status](https://coveralls.io/repos/github/bkimminich/juicy-chat-bot/badge.svg?branch=master)](https://coveralls.io/github/bkimminich/juicy-chat-bot?branch=master)
+[![CI Pipeline](https://github.com/juice-shop/juicy-chat-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/juice-shop/juicy-chat-bot/actions/workflows/ci.yml)
+[![Coverage Status](https://coveralls.io/repos/github/juice-shop/juicy-chat-bot/badge.svg?branch=master)](https://coveralls.io/github/juice-shop/juicy-chat-bot?branch=master)
 [![JavaScript Style Guide](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 Smart, friendly and helpful chat bot for OWASP Juice Shop.
 
-## Licensing [![license](https://img.shields.io/github/license/bkimminich/juicy-chat-bot.svg)](LICENSE)
+## Licensing [![license](https://img.shields.io/github/license/juice-shop/juicy-chat-bot.svg)](LICENSE)
 
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). Juicy Chat Bot and any
-contributions are Copyright © by Bjoern Kimminich 2020-2021.
+contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop
+contributors 2020-2021.
 
 ---
 
