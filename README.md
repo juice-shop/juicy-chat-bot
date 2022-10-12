@@ -10,7 +10,7 @@ Smart, friendly and helpful chat bot for OWASP Juice Shop.
 ## GitHub Contributors
 
 As reported by [`git-stats -a -s '2020'`](https://www.npmjs.com/package/git-stats) analysis
-of `master` as of Wed, 13 Oct 2021 after deduplication with `.mailmap`.
+of `master` as of Wed, 12 Oct 2022 after deduplication with `.mailmap`.
 
 ![Top git contributors](images/git-stats.png)
 
