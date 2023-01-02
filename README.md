@@ -23,7 +23,7 @@ of `master` as of Wed, 12 Oct 2022 after deduplication with `.mailmap`.
 This program is free software: you can redistribute it and/or modify it
 under the terms of the [MIT license](LICENSE). Juicy Chat Bot and any
 contributions are Copyright © by Bjoern Kimminich & the OWASP Juice Shop
-contributors 2020-2021.
+contributors 2020-2023.
 
 ---
 
