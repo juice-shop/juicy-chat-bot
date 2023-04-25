@@ -48,7 +48,7 @@
     "@nlpjs/nlu": "^4.4.0",
     "@nlpjs/request": "^4.4.0",
     "@nlpjs/sentiment": "^4.4.0",
-    "vm2": "3.9.11"
+    "vm2": "3.9.17"
   },
   "devDependencies": {
     "chai": "^4.2.0",
