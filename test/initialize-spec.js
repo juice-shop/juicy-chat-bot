@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 const chai = require('chai')
 const expect = chai.expect
 const juice = require('../index')

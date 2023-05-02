@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 const { VM } = require('vm2')
 const fs = require('fs')
 const path = require('path') // eslint-disable-line no-unused-vars

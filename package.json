@@ -1,6 +1,6 @@
 {
   "name": "juicy-chat-bot",
-  "version": "0.6.3",
+  "version": "0.6.6",
   "description": "A light-weight and totally \"secure\" library to easily deploy simple chat bots",
   "keywords": [
     "npm",
@@ -10,11 +10,11 @@
   ],
   "homepage": "https://owasp-juice.shop",
   "bugs": {
-    "url": "https://github.com/bkimminich/juicy-chat-bot/issues"
+    "url": "https://github.com/juice-shop/juicy-chat-bot/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bkimminich/juicy-chat-bot.git"
+    "url": "git+https://github.com/juice-shop/juicy-chat-bot.git"
   },
   "license": "MIT",
   "author": "Björn Kimminich <bjoern.kimminich@owasp.org> (https://kimminich.de)",
@@ -40,7 +40,6 @@
     ]
   },
   "dependencies": {
-    "vm2": "^3.9.2",
     "@nlpjs/core-loader": "^4.4.0",
     "@nlpjs/evaluator": "^4.4.0",
     "@nlpjs/lang-all": "^4.4.0",
@@ -48,7 +47,8 @@
     "@nlpjs/nlp": "^4.4.0",
     "@nlpjs/nlu": "^4.4.0",
     "@nlpjs/request": "^4.4.0",
-    "@nlpjs/sentiment": "^4.4.0"
+    "@nlpjs/sentiment": "^4.4.0",
+    "vm2": "3.9.17"
   },
   "devDependencies": {
     "chai": "^4.2.0",

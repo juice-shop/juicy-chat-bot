@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2020-2023 Bjoern Kimminich & the OWASP Juice Shop contributors.
+ * SPDX-License-Identifier: MIT
+ */
+
 /* eslint-disable no-unused-vars */
 /* global Nlp, training */
 var trainingSet = training.data
