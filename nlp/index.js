@@ -24,7 +24,7 @@
 const fs = require('fs')
 const { containerBootstrap } = require('@nlpjs/core-loader')
 const { Language } = require('@nlpjs/language')
-const { LangEn } = require('@nlpjs/lang-en');
+const { LangEn } = require('@nlpjs/lang-en')
 const { Nlp } = require('@nlpjs/nlp')
 const { Evaluator, Template } = require('@nlpjs/evaluator')
 const { fs: requestfs } = require('@nlpjs/request')
