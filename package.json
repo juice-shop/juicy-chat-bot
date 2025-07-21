@@ -26,7 +26,7 @@
   "scripts": {
     "lint": "standard",
     "lint:fix": "standard --fix",
-    "test": "nyc mocha test"
+    "test": "node --test"
   },
   "nyc": {
     "all": true,
@@ -48,9 +48,11 @@
     "@nlpjs/nlu": "^4.4.0",
     "@nlpjs/request": "^4.4.0",
     "@nlpjs/sentiment": "^4.4.0",
+    "fs": "^0.0.1-security",
     "vm2": "3.9.17"
   },
   "devDependencies": {
+    "@types/node": "^24.0.15",
     "chai": "^4.2.0",
     "mocha": "^7.1.0",
     "nyc": "^15.0.0",
