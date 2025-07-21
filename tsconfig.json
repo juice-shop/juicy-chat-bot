@@ -10,6 +10,6 @@
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true
   },
-  "include": ["nlp/*.ts"],
+  "include": ["nlp/*.ts" , "index.ts","test"],
   "exclude": ["node_modules", "dist", "build"]
 }
