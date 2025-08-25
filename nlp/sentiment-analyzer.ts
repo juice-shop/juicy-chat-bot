@@ -21,28 +21,57 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const {
-  SentimentAnalyzer: SentimentAnalyzerBase
-} = require('@nlpjs/sentiment')
-const { LangEn } = require('@nlpjs/lang-en')
-const { Nlu } = require('@nlpjs/nlu')
+import { LangEn } from '@nlpjs/lang-en'
+import {Nlu} from '@nlpjs/nlu'
+import { SentimentAnalyzer as SentimentAnalyzerBase } from '@nlpjs/sentiment';
+
+interface SentimentAnalyzerSettings {
+  [key: string]: any;
+}
+
+interface Container {
+  use: (module: any) => void;
+  [key: string]: any;
+}
+
+interface GetSentimentSettings {
+  [key: string]: any;
+}
+
+interface GetSentimentInput {
+  utterance: string;
+  locale: string;
+  [key: string]: any;
+}
+
+interface SentimentResult {
+  sentiment: any;
+  [key: string]: any;
+}
 
 class SentimentAnalyzer extends SentimentAnalyzerBase {
-  constructor (settings = {}, container) {
+  constructor (
+    settings: SentimentAnalyzerSettings = {},
+    container?: Container
+  ) {
     super(settings, container)
     this.container.use(LangEn)
     this.container.use(Nlu)
   }
 
-  async getSentiment (utterance, locale = 'en', settings = {}) {
-    const input = {
+  async getSentiment(
+    utterance: string,
+    locale: string = 'en',
+    settings: GetSentimentSettings = {}
+  ): Promise<any> {
+    const input: GetSentimentInput = {
       utterance,
       locale,
       ...settings
-    }
-    const result = await this.process(input)
-    return result.sentiment
+    };
+    const result: SentimentResult = await this.process(input);
+    return result.sentiment;
   }
 }
 
-module.exports = SentimentAnalyzer
+export default SentimentAnalyzer
