@@ -29,7 +29,7 @@ type SentimentManagerSettings = Record<string, any>
  * Class for the sentiment anlysis manager, able to manage
  * several different languages at the same time.
  */
-interface SentimentResult {
+export interface SentimentResult {
   score: number
   average: number
   numWords: number
