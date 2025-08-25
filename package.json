@@ -58,16 +58,5 @@
     "nyc": "^15.0.0",
     "standard": "^14.3.1",
     "typescript": "^5.9.2"
-  },
-  "standard": {
-    "env": [
-      "node",
-      "mocha"
-    ],
-    "globals": [
-      "it",
-      "describe",
-      "beforeEach"
-    ]
   }
 }
