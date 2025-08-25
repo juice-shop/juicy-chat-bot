@@ -21,8 +21,6 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-// const SentimentAnalyzer = require('./sentiment-analyzer')
-// import { SentimentAnalyzer } from '@nlpjs/sentiment'
 import SentimentAnalyzer from './sentiment-analyzer'
 
 type SentimentManagerSettings = Record<string, any>
@@ -63,13 +61,12 @@ class SentimentManager {
    * Constructor of the class.
    */
   constructor (settings?: SentimentManagerSettings) {
-    this.settings = settings || {}
+    this.settings = settings ?? {}
     this.languages = {}
     this.analyzer = new SentimentAnalyzer()
   }
 
-  addLanguage () {
-    // do nothing
+  addLanguage (): void {
   }
 
   translate (sentiment: SentimentResult): TranslatedSentiment {
@@ -96,12 +93,12 @@ class SentimentManager {
     locale: string,
     phrase: string
   ): Promise<TranslatedSentiment> {
-    const sentiment: SentimentResult = await this.analyzer.getSentiment(
+    const sentiment = await this.analyzer.getSentiment(
       phrase,
       locale,
       this.settings
     )
-    return this.translate(sentiment)
+    return this.translate(sentiment as SentimentResult)
   }
 }
 
