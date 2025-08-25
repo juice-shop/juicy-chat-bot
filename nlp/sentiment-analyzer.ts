@@ -22,31 +22,27 @@
  */
 
 import { LangEn } from '@nlpjs/lang-en'
-import {Nlu} from '@nlpjs/nlu'
-import { SentimentAnalyzer as SentimentAnalyzerBase } from '@nlpjs/sentiment';
+import { Nlu } from '@nlpjs/nlu'
+import { SentimentAnalyzer as SentimentAnalyzerBase } from '@nlpjs/sentiment'
 
-interface SentimentAnalyzerSettings {
-  [key: string]: any;
-}
+type SentimentAnalyzerSettings = Record<string, any>
 
 interface Container {
-  use: (module: any) => void;
-  [key: string]: any;
+  use: (module: any) => void
+  [key: string]: any
 }
 
-interface GetSentimentSettings {
-  [key: string]: any;
-}
+type GetSentimentSettings = Record<string, any>
 
 interface GetSentimentInput {
-  utterance: string;
-  locale: string;
-  [key: string]: any;
+  utterance: string
+  locale: string
+  [key: string]: any
 }
 
 interface SentimentResult {
-  sentiment: any;
-  [key: string]: any;
+  sentiment: any
+  [key: string]: any
 }
 
 class SentimentAnalyzer extends SentimentAnalyzerBase {
@@ -59,7 +55,7 @@ class SentimentAnalyzer extends SentimentAnalyzerBase {
     this.container.use(Nlu)
   }
 
-  async getSentiment(
+  async getSentiment (
     utterance: string,
     locale: string = 'en',
     settings: GetSentimentSettings = {}
@@ -68,9 +64,9 @@ class SentimentAnalyzer extends SentimentAnalyzerBase {
       utterance,
       locale,
       ...settings
-    };
-    const result: SentimentResult = await this.process(input);
-    return result.sentiment;
+    }
+    const result: SentimentResult = await this.process(input)
+    return result.sentiment
   }
 }
 

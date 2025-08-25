@@ -25,31 +25,29 @@
 // import { SentimentAnalyzer } from '@nlpjs/sentiment'
 import SentimentAnalyzer from './sentiment-analyzer'
 
-interface SentimentManagerSettings {
-  [key: string]: any;
-}
+type SentimentManagerSettings = Record<string, any>
 
 /**
  * Class for the sentiment anlysis manager, able to manage
  * several different languages at the same time.
  */
 interface SentimentResult {
-  score: number;
-  average: number;
-  numWords: number;
-  numHits: number;
-  type: string;
-  locale: string;
+  score: number
+  average: number
+  numWords: number
+  numHits: number
+  type: string
+  locale: string
 }
 
 interface TranslatedSentiment {
-  score: number;
-  comparative: number;
-  vote: 'positive' | 'negative' | 'neutral';
-  numWords: number;
-  numHits: number;
-  type: string;
-  language: string;
+  score: number
+  comparative: number
+  vote: 'positive' | 'negative' | 'neutral'
+  numWords: number
+  numHits: number
+  type: string
+  language: string
 }
 
 /**
@@ -57,9 +55,9 @@ interface TranslatedSentiment {
  * several different languages at the same time.
  */
 class SentimentManager {
-  settings: SentimentManagerSettings;
-  languages: { [key: string]: any };
-  analyzer: SentimentAnalyzer;
+  settings: SentimentManagerSettings
+  languages: Record<string, any>
+  analyzer: SentimentAnalyzer
 
   /**
    * Constructor of the class.
@@ -74,14 +72,14 @@ class SentimentManager {
     // do nothing
   }
 
-  translate(sentiment: SentimentResult): TranslatedSentiment {
-    let vote: 'positive' | 'negative' | 'neutral';
+  translate (sentiment: SentimentResult): TranslatedSentiment {
+    let vote: 'positive' | 'negative' | 'neutral'
     if (sentiment.score > 0) {
-      vote = 'positive';
+      vote = 'positive'
     } else if (sentiment.score < 0) {
-      vote = 'negative';
+      vote = 'negative'
     } else {
-      vote = 'neutral';
+      vote = 'neutral'
     }
     return {
       score: sentiment.score,
@@ -91,7 +89,7 @@ class SentimentManager {
       numHits: sentiment.numHits,
       type: sentiment.type,
       language: sentiment.locale
-    };
+    }
   }
 
   async process (
@@ -102,8 +100,8 @@ class SentimentManager {
       phrase,
       locale,
       this.settings
-    );
-    return this.translate(sentiment);
+    )
+    return this.translate(sentiment)
   }
 }
 
