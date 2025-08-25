@@ -24,6 +24,7 @@
 import { LangEn } from '@nlpjs/lang-en'
 import { Nlu } from '@nlpjs/nlu'
 import { SentimentAnalyzer as SentimentAnalyzerBase } from '@nlpjs/sentiment'
+import type { SentimentResult } from './sentiment'
 
 type SentimentAnalyzerSettings = Record<string, any>
 
@@ -37,11 +38,6 @@ type GetSentimentSettings = Record<string, any>
 interface GetSentimentInput {
   utterance: string
   locale: string
-  [key: string]: any
-}
-
-interface SentimentResult {
-  sentiment: any
   [key: string]: any
 }
 
@@ -66,7 +62,7 @@ class SentimentAnalyzer extends SentimentAnalyzerBase {
       ...settings
     }
     const result: SentimentResult = await this.process(input)
-    return result.sentiment
+    return result
   }
 }
 
