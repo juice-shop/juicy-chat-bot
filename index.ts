@@ -6,8 +6,9 @@
 import { VM } from 'vm2'
 import fs from 'fs'
 import path from 'path'
-import NlpManager from './nlp'// eslint-disable-line no-unused-vars
-const ctx = fs.readFileSync(`${__dirname}/factory.js`).toString()
+import NlpManager from './nlp'
+
+const ctx = fs.readFileSync(path.join(__dirname, 'factory.js')).toString()
 
 interface Training {
   state: boolean
@@ -28,9 +29,9 @@ interface BotQueryResponse {
 class Bot {
   name: string
   greeting: string
-  defaultResponse: BotResponse
-  training: Training
-  factory: any
+  defaultResponse!: BotResponse
+  training!: Training
+  factory: VM
 
   constructor (
     name: string,
@@ -40,11 +41,11 @@ class Bot {
   ) {
     this.name = name
     this.greeting = greeting
-    this.defaultResponse = { action: 'response', body: defaultResponse } as BotResponse
+    this.defaultResponse = { action: 'response', body: defaultResponse }
     this.training = {
       state: false,
       data: trainingSet
-    } as Training
+    }
     this.factory = new VM({
       sandbox: {
         Nlp: NlpManager,
@@ -60,7 +61,8 @@ class Bot {
   }
 
   render (statement: string, token: string): string {
-    return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, this.factory.run(`currentUser(${token})`))
+    const currentUser = String(this.factory.run(`currentUser("${token}")`))
+    return statement.replace(/<bot-name>/g, this.name).replace(/<customer-name>/g, currentUser)
   }
 
   addUser (token: string, name: string): void {
@@ -73,17 +75,17 @@ class Bot {
 
   async respond (query: string, token: string): Promise<BotResponse> {
     const response: BotQueryResponse = (await this.factory.run(`process("${query}", "${token}")`)).answer
-    if (!response) {
+    if (response == null) {
       return this.defaultResponse
     } else {
-      if (response.body) {
+      if (response.body != null) {
         response.body = this.render(response.body, token)
       }
       return response as BotResponse
     }
   }
 
-  train () {
+  train (): any {
     return this.factory.run('train()')
   }
 }
