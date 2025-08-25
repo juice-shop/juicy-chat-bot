@@ -29,6 +29,7 @@ import { Nlp } from '@nlpjs/nlp'
 import { Evaluator, Template } from '@nlpjs/evaluator'
 import { fs as requestfs } from '@nlpjs/request'
 import SentimentManager from './sentiment'
+import type { SentimentResult } from './sentiment'
 
 type ActionParameters = Record<string, any>
 
@@ -41,7 +42,7 @@ class NlpManager {
   sentimentManager: SentimentManager
   constructor (settings = {}) {
     this.settings = settings
-    if (!this.settings.container) {
+    if (this.settings.container == null) {
       this.settings.container = containerBootstrap()
     }
     this.container = this.settings.container
@@ -91,11 +92,12 @@ class NlpManager {
     action: string,
     parameters: ActionParameters,
     fn?: ActionFunction
-  ): any {
-    if (!fn) {
-      fn = this.settings.action ? this.settings.action[action] : undefined
+  ): void {
+    let finalFn = fn
+    if (finalFn == null) {
+      finalFn = this.settings.action != null ? (this.settings.action)[action] : undefined
     }
-    return this.nlp.addAction(intent, action, parameters, fn)
+    return this.nlp.addAction(intent, action, parameters, finalFn)
   }
 
   getActions (intent: string): Array<{ action: string, parameters: ActionParameters, fn?: ActionFunction }> {
@@ -141,7 +143,7 @@ class NlpManager {
       locale,
       utterance
     )
-    return this.sentimentManager.translate(sentiment.sentiment)
+    return this.sentimentManager.translate(sentiment.sentiment as SentimentResult)
   }
 
   addNamedEntityText (
@@ -285,7 +287,7 @@ class NlpManager {
     settings?: any
   ): Promise<any> {
     const result = await this.nlp.process(locale, utterance, context, settings)
-    if (this.settings.processTransformer) {
+    if (this.settings.processTransformer != null) {
       return this.settings.processTransformer(result)
     }
     return result
@@ -332,7 +334,7 @@ class NlpManager {
    * @param {String} srcFileName Filename for saving the NLP manager.
    */
   save (srcFileName?: string, minified = false): void {
-    const fileName = srcFileName || 'model.nlp'
+    const fileName = srcFileName ?? 'model.nlp'
     fs.writeFileSync(fileName, this.export(minified), 'utf8')
   }
 
@@ -341,7 +343,7 @@ class NlpManager {
    * @param {String} srcFilename Filename for loading the NLP manager.
    */
   load (srcFileName?: string): void {
-    const fileName = srcFileName || 'model.nlp'
+    const fileName = srcFileName ?? 'model.nlp'
     const data = fs.readFileSync(fileName, 'utf8')
     this.import(data)
   }
