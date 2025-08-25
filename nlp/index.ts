@@ -79,7 +79,7 @@ class NlpManager {
     return this.nlp.getIntentDomain(locale, intent)
   }
 
-  getDomains () {
+  getDomains (): string[] {
     return this.nlp.getDomains()
   }
 
