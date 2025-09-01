@@ -32,7 +32,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20, 22, 24]
+        # Only one version should upload coverage to avoid duplicate reports
+        include:
+          - node-version: 20
+            upload_coverage: false
+          - node-version: 22
+            upload_coverage: true
+          - node-version: 24
+            upload_coverage: false
     steps:
       - name: "Check out Git repository"
         uses: actions/checkout@v5
@@ -55,7 +62,7 @@ jobs:
       - name: "Execute unit tests"
         run: npm test
       - name: "Publish coverage to Coveralls"
-        if: github.event_name == 'push' && matrix.node-version == '22'
+        if: github.event_name == 'push' && matrix.upload_coverage
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
