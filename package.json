@@ -1,6 +1,11 @@
 {
   "name": "juicy-chat-bot",
   "version": "0.8.0",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "types.d.ts"
+  ],
   "description": "A light-weight and totally \"secure\" library to easily deploy simple chat bots",
   "keywords": [
     "npm",
@@ -22,7 +27,7 @@
     "Scar26",
     "Björn Kimminich"
   ],
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc && copyfiles factory.js dist",
     "lint": "eslint index.ts nlp --ext .ts",
