@@ -3,7 +3,9 @@
   "version": "0.8.0",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
+    "dist/**/*.js",
+    "dist/**/*.d.ts",
+    "!dist/test/*",
     "types.d.ts"
   ],
   "description": "A light-weight and totally \"secure\" library to easily deploy simple chat bots",
@@ -37,6 +39,14 @@
   "c8": {
     "all": true,
     "report-dir": "./build/reports/coverage",
+    "exclude-after-remap": true,
+    "exclude": [
+      "build/**",
+      "dist/**",
+      "node_modules/**",
+      ".eslintrc.cjs",
+      "**.d.ts"
+    ],
     "reporter": [
       "lcov",
       "text-summary"
