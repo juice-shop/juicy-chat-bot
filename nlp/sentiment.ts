@@ -21,28 +21,56 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const SentimentAnalyzer = require('./sentiment-analyzer')
+import SentimentAnalyzer from './sentiment-analyzer'
+
+type SentimentManagerSettings = Record<string, any>
+
+/**
+ * Class for the sentiment anlysis manager, able to manage
+ * several different languages at the same time.
+ */
+export interface SentimentResult {
+  score: number
+  average: number
+  numWords: number
+  numHits: number
+  type: string
+  locale: string
+}
+
+interface TranslatedSentiment {
+  score: number
+  comparative: number
+  vote: 'positive' | 'negative' | 'neutral'
+  numWords: number
+  numHits: number
+  type: string
+  language: string
+}
 
 /**
  * Class for the sentiment anlysis manager, able to manage
  * several different languages at the same time.
  */
 class SentimentManager {
+  settings: SentimentManagerSettings
+  languages: Record<string, any>
+  analyzer: SentimentAnalyzer
+
   /**
    * Constructor of the class.
    */
-  constructor (settings) {
-    this.settings = settings || {}
+  constructor (settings?: SentimentManagerSettings) {
+    this.settings = settings ?? {}
     this.languages = {}
     this.analyzer = new SentimentAnalyzer()
   }
 
-  addLanguage () {
-    // do nothing
+  addLanguage (): void {
   }
 
-  translate (sentiment) {
-    let vote
+  translate (sentiment: SentimentResult): TranslatedSentiment {
+    let vote: 'positive' | 'negative' | 'neutral'
     if (sentiment.score > 0) {
       vote = 'positive'
     } else if (sentiment.score < 0) {
@@ -61,20 +89,17 @@ class SentimentManager {
     }
   }
 
-  /**
-   * Process a phrase of a given locale, calculating the sentiment analysis.
-   * @param {String} locale Locale of the phrase.
-   * @param {String} phrase Phrase to calculate the sentiment.
-   * @returns {Promise.Object} Promise sentiment analysis of the phrase.
-   */
-  async process (locale, phrase) {
+  async process (
+    locale: string,
+    phrase: string
+  ): Promise<TranslatedSentiment> {
     const sentiment = await this.analyzer.getSentiment(
       phrase,
       locale,
       this.settings
     )
-    return this.translate(sentiment)
+    return this.translate(sentiment as SentimentResult)
   }
 }
 
-module.exports = SentimentManager
+export default SentimentManager

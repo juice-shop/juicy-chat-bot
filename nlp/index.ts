@@ -21,19 +21,28 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-const fs = require('fs')
-const { containerBootstrap } = require('@nlpjs/core-loader')
-const { Language } = require('@nlpjs/language')
-const { LangEn } = require('@nlpjs/lang-en')
-const { Nlp } = require('@nlpjs/nlp')
-const { Evaluator, Template } = require('@nlpjs/evaluator')
-const { fs: requestfs } = require('@nlpjs/request')
-const SentimentManager = require('./sentiment')
+import fs from 'fs'
+import { containerBootstrap } from '@nlpjs/core-loader'
+import { Language } from '@nlpjs/language'
+import { LangEn } from '@nlpjs/lang-en'
+import { Nlp } from '@nlpjs/nlp'
+import { Evaluator, Template } from '@nlpjs/evaluator'
+import { fs as requestfs } from '@nlpjs/request'
+import SentimentManager from './sentiment'
+import type { SentimentResult } from './sentiment'
+
+type ActionParameters = Record<string, any>
+
+type ActionFunction = (...args: any[]) => any
 
 class NlpManager {
+  settings: any
+  container: any
+  nlp: any
+  sentimentManager: SentimentManager
   constructor (settings = {}) {
     this.settings = settings
-    if (!this.settings.container) {
+    if (this.settings.container == null) {
       this.settings.container = containerBootstrap()
     }
     this.container = this.settings.container
@@ -50,71 +59,99 @@ class NlpManager {
     this.sentimentManager = new SentimentManager()
   }
 
-  addDocument (locale, utterance, intent) {
+  addDocument (locale: string, utterance: string, intent: string): void {
     return this.nlp.addDocument(locale, utterance, intent)
   }
 
-  removeDocument (locale, utterance, intent) {
+  removeDocument (locale: string, utterance: string, intent: string): void {
     return this.nlp.removeDocument(locale, utterance, intent)
   }
 
-  addLanguage (locale) {
+  addLanguage (locale: string): void {
     return this.nlp.addLanguage(locale)
   }
 
-  assignDomain (locale, intent, domain) {
+  assignDomain (locale: string, intent: string, domain: string): void {
     return this.nlp.assignDomain(locale, intent, domain)
   }
 
-  getIntentDomain (locale, intent) {
+  getIntentDomain (locale: string, intent: string): string | undefined {
     return this.nlp.getIntentDomain(locale, intent)
   }
 
-  getDomains () {
+  getDomains (): string[] {
     return this.nlp.getDomains()
   }
 
-  guessLanguage (text) {
+  guessLanguage (text: string): string {
     return this.nlp.guessLanguage(text)
   }
 
-  addAction (intent, action, parameters, fn) {
-    if (!fn) {
-      fn = this.settings.action ? this.settings.action[action] : undefined
+  addAction (
+    intent: string,
+    action: string,
+    parameters: ActionParameters,
+    fn?: ActionFunction
+  ): void {
+    let finalFn = fn
+    if (finalFn == null) {
+      finalFn = this.settings.action != null ? (this.settings.action)[action] : undefined
     }
-    return this.nlp.addAction(intent, action, parameters, fn)
+    return this.nlp.addAction(intent, action, parameters, finalFn)
   }
 
-  getActions (intent) {
+  getActions (intent: string): Array<{ action: string, parameters: ActionParameters, fn?: ActionFunction }> {
     return this.nlp.getActions(intent)
   }
 
-  removeAction (intent, action, parameters) {
+  removeAction (
+    intent: string,
+    action: string,
+    parameters: ActionParameters
+  ): any {
     return this.nlp.removeAction(intent, action, parameters)
   }
 
-  removeActions (intent) {
+  removeActions (intent: string): Array<{ action: string, parameters: ActionParameters, fn?: ActionFunction }> {
     return this.nlp.removeActions(intent)
   }
 
-  addAnswer (locale, intent, answer, opts) {
+  addAnswer (
+    locale: string,
+    intent: string,
+    answer: string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addAnswer(locale, intent, answer, opts)
   }
 
-  removeAnswer (locale, intent, answer, opts) {
+  removeAnswer (
+    locale: string,
+    intent: string,
+    answer: string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.removeAnswer(locale, intent, answer, opts)
   }
 
-  findAllAnswers (locale, intent) {
+  findAllAnswers (locale: string, intent: string): string[] {
     return this.nlp.findAllAnswers(locale, intent)
   }
 
-  async getSentiment (locale, utterance) {
-    const sentiment = await this.nlp.getSentiment(locale, utterance)
-    return this.sentimentManager.translate(sentiment.sentiment)
+  async getSentiment (locale: string, utterance: string): Promise<any> {
+    const sentiment: { sentiment: any } = await this.nlp.getSentiment(
+      locale,
+      utterance
+    )
+    return this.sentimentManager.translate(sentiment.sentiment as SentimentResult)
   }
 
-  addNamedEntityText (entityName, optionName, languages, texts) {
+  addNamedEntityText (
+    entityName: string,
+    optionName: string,
+    languages: string[] | string,
+    texts: string[] | string
+  ): any {
     return this.nlp.addNerRuleOptionTexts(
       languages,
       entityName,
@@ -123,7 +160,12 @@ class NlpManager {
     )
   }
 
-  removeNamedEntityText (entityName, optionName, languages, texts) {
+  removeNamedEntityText (
+    entityName: string,
+    optionName: string,
+    languages: string[] | string,
+    texts: string[] | string
+  ): any {
     return this.nlp.removeNerRuleOptionTexts(
       languages,
       entityName,
@@ -132,15 +174,31 @@ class NlpManager {
     )
   }
 
-  addRegexEntity (entityName, languages, regex) {
+  addRegexEntity (
+    entityName: string,
+    languages: string[] | string,
+    regex: RegExp | string
+  ): any {
     return this.nlp.addNerRegexRule(languages, entityName, regex)
   }
 
-  addBetweenCondition (locale, name, left, right, opts) {
+  addBetweenCondition (
+    locale: string,
+    name: string,
+    left: string[] | string,
+    right: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerBetweenCondition(locale, name, left, right, opts)
   }
 
-  addPositionCondition (locale, name, position, words, opts) {
+  addPositionCondition (
+    locale: string,
+    name: string,
+    position: number,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerPositionCondition(
       locale,
       name,
@@ -150,61 +208,105 @@ class NlpManager {
     )
   }
 
-  addAfterCondition (locale, name, words, opts) {
+  addAfterCondition (
+    locale: string,
+    name: string,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerAfterCondition(locale, name, words, opts)
   }
 
-  addAfterFirstCondition (locale, name, words, opts) {
+  addAfterFirstCondition (
+    locale: string,
+    name: string,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerAfterFirstCondition(locale, name, words, opts)
   }
 
-  addAfterLastCondition (locale, name, words, opts) {
+  addAfterLastCondition (
+    locale: string,
+    name: string,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerAfterLastCondition(locale, name, words, opts)
   }
 
-  addBeforeCondition (locale, name, words, opts) {
+  addBeforeCondition (
+    locale: string,
+    name: string,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerBeforeCondition(locale, name, words, opts)
   }
 
-  addBeforeFirstCondition (locale, name, words, opts) {
+  addBeforeFirstCondition (
+    locale: string,
+    name: string,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
     return this.nlp.addNerBeforeFirstCondition(locale, name, words, opts)
   }
 
-  addBeforeLastCondition (locale, name, words, opts) {
-    return this.ner.addNerBeforeLastCondition(locale, name, words, opts)
+  addBeforeLastCondition (
+    locale: string,
+    name: string,
+    words: string[] | string,
+    opts?: Record<string, any>
+  ): any {
+    return this.nlp.addNerBeforeLastCondition(locale, name, words, opts)
   }
 
-  describeLanguage (locale, name) {
+  describeLanguage (locale: string, name: string): any {
     return this.nlp.describeLanguage(locale, name)
   }
 
-  beginEdit () {}
+  beginEdit (): void {}
 
-  train () {
+  train (): any {
     return this.nlp.train()
   }
 
-  classify (locale, utterance, settings) {
+  classify (
+    locale: string,
+    utterance: string,
+    settings?: Record<string, any>
+  ): any {
     return this.nlp.classify(locale, utterance, settings)
   }
 
-  async process (locale, utterance, context, settings) {
+  async process (
+    locale: string,
+    utterance: string,
+    context?: any,
+    settings?: any
+  ): Promise<any> {
     const result = await this.nlp.process(locale, utterance, context, settings)
-    if (this.settings.processTransformer) {
+    if (this.settings.processTransformer != null) {
       return this.settings.processTransformer(result)
     }
     return result
   }
 
-  extractEntities (locale, utterance, context, settings) {
+  extractEntities (
+    locale: string,
+    utterance: string,
+    context?: any,
+    settings?: any
+  ): any {
     return this.nlp.extractEntities(locale, utterance, context, settings)
   }
 
-  toObj () {
+  toObj (): any {
     return this.nlp.toJSON()
   }
 
-  fromObj (obj) {
+  fromObj (obj: any): any {
     return this.nlp.fromJSON(obj)
   }
 
@@ -213,7 +315,7 @@ class NlpManager {
    * @param {Boolean} minified If true, the returned JSON will have no spacing or indentation.
    * @returns {String} NLP manager information as a JSON string.
    */
-  export (minified = false) {
+  export (minified = false): string {
     const clone = this.toObj()
     return minified ? JSON.stringify(clone) : JSON.stringify(clone, null, 2)
   }
@@ -222,7 +324,7 @@ class NlpManager {
    * Load NLP manager information from a string.
    * @param {String|Object} data JSON string or object to load NLP manager information from.
    */
-  import (data) {
+  import (data: string | object): void {
     const clone = typeof data === 'string' ? JSON.parse(data) : data
     this.fromObj(clone)
   }
@@ -231,8 +333,8 @@ class NlpManager {
    * Save the NLP manager information into a file.
    * @param {String} srcFileName Filename for saving the NLP manager.
    */
-  save (srcFileName, minified = false) {
-    const fileName = srcFileName || 'model.nlp'
+  save (srcFileName?: string, minified = false): void {
+    const fileName = srcFileName ?? 'model.nlp'
     fs.writeFileSync(fileName, this.export(minified), 'utf8')
   }
 
@@ -240,11 +342,11 @@ class NlpManager {
    * Load the NLP manager information from a file.
    * @param {String} srcFilename Filename for loading the NLP manager.
    */
-  load (srcFileName) {
-    const fileName = srcFileName || 'model.nlp'
+  load (srcFileName?: string): void {
+    const fileName = srcFileName ?? 'model.nlp'
     const data = fs.readFileSync(fileName, 'utf8')
     this.import(data)
   }
 }
 
-module.exports = NlpManager
+export default NlpManager
