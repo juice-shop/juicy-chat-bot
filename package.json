@@ -29,7 +29,7 @@
   ],
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc && copyfiles factory.js dist",
+    "build": "tsc",
     "lint": "eslint index.ts nlp --ext .ts",
     "lint:fix": "eslint index.ts nlp --ext .ts --fix",
     "test": "c8 node dist/test/initialize.spec.js"

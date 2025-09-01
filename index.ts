@@ -74,7 +74,7 @@ class Bot {
   }
 
   async respond (query: string, token: string): Promise<BotResponse> {
-    const response: BotQueryResponse = (await this.factory.run(`process("${query}", "${token}")`)).answer
+    const response: BotQueryResponse = (await this.factory.run(`processQuery("${query}", "${token}")`)).answer
     if (response == null) {
       return this.defaultResponse
     } else {
