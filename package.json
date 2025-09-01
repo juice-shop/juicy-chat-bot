@@ -51,7 +51,7 @@
     "@nlpjs/nlu": "^4.4.0",
     "@nlpjs/request": "^4.4.0",
     "@nlpjs/sentiment": "^4.4.0",
-    "vm2": "3.9.17"
+    "vm2": "3.9.19"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",
